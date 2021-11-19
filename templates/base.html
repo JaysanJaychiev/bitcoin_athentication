@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Currency</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
+</head>
+<body>
+    <header>
+        {% if user.is_authenticated %}
+            <span>{{ user.username }}</span>
+            <a href="{% url 'account_logout' %}">Выход</a> 
+        {% else %}
+            <a href="{% url 'account_login' %}">Вход</a>
+            <a href="{% url 'account_signup' %}">Регистрация</a>
+        {% endif %}
+    </header>
+    <br><br><br>
+    <main>
+        {%block content%}
+        {% if user.is_authenticated %}
+            <table>
+                <tr>
+                <th>User</th>
+                <th>Cyptocurrency</th>
+                <th>Symbol</th>
+                <th>Price</th>
+                </tr>
+                {% for userCurrency in usersCurrency_list %}
+                    <tr>
+                    <td>{{ userCurrency.user }}</td>
+                    <td>{{ userCurrency.cryptocurrency }}</td>
+                    <td>{{ userCurrency.cryptocurrency_symbol }}</td>
+                    <td>{{ userCurrency.price }}</td>
+                    </tr>
+                {% endfor %}
+            </table> 
+        {% endif %}
+        {% endblock %}
+        
+        
+    </main>
+</body>
+</html>
